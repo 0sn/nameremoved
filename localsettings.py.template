@@ -1,0 +1,32 @@
+# Django machine-specific settings for nameremoved project.
+import os
+
+DEBUG = False
+SQL_DEBUG = DEBUG
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(os.path.abspath(__file__)),"templates"),
+)
+
+SECRET_KEY = '' # set a good secret key
+MEDIA_ROOT = '' # what do you do when it's on another server completely?!
+
+DATABASE_ENGINE = ''
+DATABASE_NAME = ''
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+
+CACHE_BACKEND = 'dummy:///'
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX="nameremoved"
