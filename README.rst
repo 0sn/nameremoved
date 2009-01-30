@@ -33,8 +33,9 @@ How To Update
 - You have to create the chunks yourself from your old templates
 - You have to manually convert your Extra pages into flatpages. Sucks, I know!
 
-Notice
-------
+About This Branch
+-----------------
 
-The source code expects to live in a folder named "nr", not "nameremoved". Yeah,
-well, maybe I can make it more universal or something.
+Hooking the transcriptions of comics into `OhNoRobot <http://ohnorobot.com/>`_.
+Starting with the same old cruddy python script that screenscrapes the
+OhNoRobot javascript.
