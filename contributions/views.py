@@ -1,6 +1,7 @@
 # Create your views here.
 from models import Contributor, Contribution
 from nr.utils import render_with_request
+from django.contrib.admin.views.decorators import staff_member_required
 
 def contribution_list(request):
     """the contributions list page!!"""
@@ -34,3 +35,12 @@ def submit(request):
 
 def thanks(request):
     return render_with_request('contributions/thanks.html',{},request)
+
+@staff_member_required
+def report(request):
+    """makes the unused suggestions report"""
+    return render_with_request(
+        'admin/contributions/report.html',
+        {'contribs': Contribution.objects.all().filter(flagged = False, contribution_type = 'suggested')},
+        request
+    )
