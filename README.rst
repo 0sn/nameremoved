@@ -32,3 +32,9 @@ How To Update
 - run python manage.py sqlflush | python manage.py dbshell
 - You have to create the chunks yourself from your old templates
 - You have to manually convert your Extra pages into flatpages. Sucks, I know!
+
+Notice
+------
+
+The source code expects to live in a folder named "nr", not "nameremoved". Yeah,
+well, maybe I can make it more universal or something.
