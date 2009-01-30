@@ -33,8 +33,8 @@ How To Update
 - You have to create the chunks yourself from your old templates
 - You have to manually convert your Extra pages into flatpages. Sucks, I know!
 
-Notice
-------
+About This Branch
+-----------------
 
-The source code expects to live in a folder named "nr", not "nameremoved". Yeah,
-well, maybe I can make it more universal or something.
+I'm going to add a new fun feature to the website where you can ask a question
+about a comic, and then I will (maybe) answer it.
