@@ -1,5 +1,7 @@
 # memcached_status.py
 
+# from http://effbot.org/zone/django-memcached-view.htm
+
 from django import http
 from django.shortcuts import render_to_response
 from django.conf import settings

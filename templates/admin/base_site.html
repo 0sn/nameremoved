@@ -6,4 +6,5 @@
 <h1 id="site-name">name removed comics by nick wolfe</h1>
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block nav-global %}{% if user.is_authenticated and user.is_staff %}
+<a href="{% url nr.utils.mstat.view %}">Memcache stats</a>{% endif %}{% endblock %}
