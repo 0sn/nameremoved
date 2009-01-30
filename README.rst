@@ -11,7 +11,10 @@ Some Things Have Changed
 - slug field in contributor
 - height and width names in comic
 - contribution with null contributor should instead be 666
-- also add the following to the dumpdata::
+- also add the following to the dumpdata
+
+::
+
     {
       "pk": 666,
       "model": "contributions.contributor",
