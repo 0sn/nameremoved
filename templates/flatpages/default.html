@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+{% load flatpage %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block headstuff %}<style type="text/css">
+    .cast img {float:left;clear:both;padding:0 1.5em 0 0;}
+    .cast li {list-style-type:none;}
+    .cast li {clear:both;border:none;padding:1.5em 1.5em 1.5em 1.5em;}
+    ul.cast:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+</style>{% endblock %}
+
+{% comment %}
+    if we're at a flatpage root, then the title is just "current page title"
+    if we're below a flatpage root, then the title is "root title / current page title"
+{% endcomment %}
+{% block pageinfo %}{% flatpage_children flatpage.url %}
+<h2>{% ifequal flatpage_root flatpage %}{{flatpage.title}}{% else %}<a href="{{flatpage_root.url}}">{{flatpage_root.title}}</a> / {{flatpage.title}}{% endifequal %}</h2>
+{% endblock %}
+
+
+{% block bodycontent %}
+<div class="box">{{flatpage.content|media_url}}</div>
+{% endblock %}
+
+{% block localnews %}
+{% spaceless %}
+{% flatpage_children flatpage.url %}
+{% if flatpage_children %}
+<ul class="nav">
+{% for child in flatpage_children %}
+    {% ifequal child.url flatpage.url  %}
+        <li><span class="currently">{{child.title}}</span></li>
+    {% else %}
+        <li><a href="{{child.url}}">{{child.title}}</a></li>
+    {% endifequal %}
+{% endfor %}
+</ul>
+{% else %}
+<p></p>
+{% endif %}
+{% endspaceless %}
+{% endblock %}

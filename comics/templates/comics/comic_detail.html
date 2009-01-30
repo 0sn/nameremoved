@@ -1,0 +1,109 @@
+{% extends 'main.html' %}
+
+{% block title %} {{ comic.date }}: {{ comic.title }}{% endblock %}
+
+{% block headstuff %}
+<style type="text/css">
+#title { margin-bottom: auto; margin-top: none;}
+#transcription{margin-right:0pt;float:left;width:550px;padding-right:0pt;}
+#saved{padding:0.5em; background:#EEE;margin-bottom:1em;}
+#topnav { float: right; padding: 0px; margin: 4px 0 0 0;}
+#topnav li { margin: 2px; padding: 0px; list-style: none; float:left; width: 14px;background-image: url(http://static.nameremoved.com/pix/arrows.png); overflow:hidden;} 
+#topnav a, #topnav li { height: 7px; display: block;}
+#topnavfirst {background-position: 0px 0px;}
+#topnavfirst:hover {background-position: 0px -16px;}
+#topnavfirstnot {background-position: 0px -8px;}
+#topnavprev {background-position: -15px 0px;}
+#topnavprev:hover {background-position: -15px -16px;}
+#topnavprevnot {background-position: -15px -8px;}
+#topnavnext {background-position: -30px 0px;}
+#topnavnext:hover {background-position: -30px -16px;}
+#topnavnextnot {background-position: -30px -8px;}
+#topnavlast {background-position: -45px 0px;}
+#topnavlast:hover {background-position: -45px -16px;}
+#topnavlastnot {background-position: -45px -8px;}
+#topnav a {text-indent: -600px;}
+#topnav a:hover {background: none;}
+#bottomnav li {width: 70px; float:left; padding-right: 5px;}
+#bottomnav span.currently {float:none;}
+#bottomnav li.forward { text-align: right; }
+#facebook a,#bottomnav a {border:1px solid;display:block;text-decoration:none;padding:0 0.5em 0 0.5em;border-color:#ccc;background-color:#fff;}
+#facebook a:hover, #bottomnav a:hover{background-color:#ccc;}
+</style>
+{% endblock %}
+
+{% block pageinfo %}<h2 id="title">{{ comic.title }}</h2>
+
+{% spaceless %}
+<ul id="topnav">
+{% ifequal comic.sequence comic.first %}
+    <li id="topnavfirstnot"><a>First</a></li>
+    <li id="topnavprevnot"><a>Previous</a></li>
+{% else %}
+    <li id="topnavfirst"><a href="/comics/{{ comic.first }}/" title="First">First</a></li>
+    <li id="topnavprev"><a href="/comics/{{ comic.previous }}" title="Previous">Previous</a></li>
+{% endifequal %}
+{% ifequal comic.sequence comic.last %}
+    <li id="topnavnextnot"><a>Next</a></li>
+    <li id="topnavlastnot"><a>Last</a></li>
+{% else %}
+    <li id="topnavnext"><a href="/comics/{{ comic.next }}/" title="Next">Next</a></li>
+    <li id="topnavlast"><a href="/comics/{{ comic.last }}/" title="Last">Last</a></li>
+{% endifequal %}
+</ul>
+{% endspaceless %}
+
+    <h3>{{ comic.date }}<br>{{ comic.newstitle }}</h3>
+    <p>{{ comic.news|safe|linebreaksbr }}</p>{% endblock %}
+
+{% block bodycontent %}
+<!--OnlineComics.net tags -->
+
+<img src="{{ comic.comic.url }}" width="{{ comic.comic_width }}" height="{{ comic.comic_height }}" alt="Comic for {{ comic.date }}" >
+
+<!-- links to prev and next -->
+<ul id="bottomnav" class="nav">
+{% ifequal comic.sequence comic.first %}
+    <li><span class="currently">First</span></li>
+    <li><span class="currently">Previous</span></li>
+{% else %}
+    <li><a href="/comics/{{ comic.first }}/" title="First">First</a></li>
+    <li><a href="/comics/{{ comic.previous }}" title="Previous">Previous</a></li>
+{% endifequal %}
+{% ifequal comic.sequence comic.last %}
+    <li class="forward"><span class="currently">Next</span></li>
+    <li class="forward"><span class="currently">Last</span></li>
+{% else %}
+    <li class="forward"><a href="/comics/{{ comic.next }}/" title="Next">Next</a></li>
+    <li class="forward"><a href="/comics/{{ comic.last }}/" title="Last">Last</a></li>
+{% endifequal %}    
+</ul>
+<p id="facebook"><a href="http://www.facebook.com/share.php?u=http%3A%2F%2Fnameremoved.com{{ comic.get_absolute_url }}">Post this comic to your Facebook wall.</a></p>
+
+<div id="transcription">
+    {% block transcript %}
+    <div class="box">
+    <h3>Transcription</h3>
+    <code>
+        {{ comic.transcript|force_escape|safe|linebreaksbr }}
+    </code>
+    </div>
+    {% endblock %}
+</div>
+<!-- end of onlinecomics.net -->
+{% endblock %}
+
+{% block localnews %}
+{% with comic.origin.all as contributions %}
+{% if contributions %}
+<div id="contribution">
+<h3>Contributions</h3>
+{% for contribution in contributions %}
+<p><a href="{{ contribution.get_absolute_url }}">{{ contribution.aka }}</a>
+<em>{{ contribution.get_contribution_type_display }}</em>
+{{ contribution.content }}</p>    
+{% endfor %}
+</div>    
+{% endif %}
+{% endwith %}
+{% endblock %}

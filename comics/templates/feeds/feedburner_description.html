@@ -1,0 +1,10 @@
+<h2>News: {{ obj.newstitle}}</h2>
+<p>{{ obj.news|safe|linebreaksbr }}</p>
+
+<p>
+<img src="http://nameremoved.com{{ obj.get_absolute_url}}image/">
+</p>
+
+<p>
+{{ obj.transcript|force_escape|safe|linebreaksbr }}
+</p>

@@ -1,0 +1,14 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+{% if change %}
+{% if original.comic_set.all.count %}
+<p>This submission is used in the following comics:</p>
+    <ul>
+        {% for comic in original.comic_set.all %}
+        <li><a href="../../../comics/comic/{{ comic.id }}">{{ comic }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endif %}
+{% endblock %}

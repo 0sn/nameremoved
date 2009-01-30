@@ -1,0 +1,12 @@
+{% extends "comics/comic_detail.html" %}
+
+{% block savedlink %}{% spaceless%}
+{% if new_visitor %}
+    <div id="saved">Is this your first time here? Why not start with <a href="/comics/166/">this comic?</a> Or <a href="/contribute/list/">explore the contributions readers have made to the site</a>...</div>
+{% endif %}
+{% if showguide %}
+    <div id="saved">The last comic you were looking at was <a href="{{ saved.get_absolute_url }}">"{{ saved.title }}", posted {{saved.date|date:"j F, Y"}}</a></div>
+{% endif %}
+{% endspaceless %}{% endblock %}
+
+{% block transcript %}{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "contributions/ccc.html" %}
+
+{% block body %}
+        <form method="post" action="/contribute/submit/">
+<dl>
+{% for field in form %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd {% if field.errors %}class="error"{% endif %}>{{ field }}</dd>
+{% if field.help_text %}<dd>{{ field.help_text }}{% endif %}
+{% if field.errors %}<dd class="error">{{ field.errors }}</dd>{% endif %}
+{% endfor %}
+</dl>
+        <input type="submit" />
+        </form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block title %}Contribute to the Site{% endblock %}
+
+{% block headstuff %}
+<style type="text/css">
+.nrccs,.nrccs a{border:2px solid red;}
+.nrccs{padding:20px;margin:10px;}
+.nrccs a{display:block;padding:10px;}
+.nrccs a:hover{background:red;}
+#please{font-size:2em;}
+h4{color:#666;margin-top:1.5em;}
+.contribution{margin:0 6em 0.5em 6em;}
+#contributors .nav{margin:0 6em 0.5em 6em;}
+</style>
+{% endblock %}
+
+{% block bodycontent %}
+<div class="box">
+<h3>How to contribute</h3>
+<p class="nrccs">All you need to do is visit the <a href="/contribute/submit/">NAME REMOVED CONDUCIVE CONTRIBUTION SYSTEM</a>
+    Try it out!</p>
+<p>Simultaneously, scope out <a href="/comics/220/">THIS blank comic</a>, add some text, and mail it in! (fourthpanel at nameremoved dot com) It will almost certainly be posted. Amazing interactivity!</p>
+
+<h3>List of Contributors</h3>
+<div id="contributors">
+{% if plural %}
+{% for contributor in plural %}
+    <h4 id="{{ contributor.slug }}">{{ contributor.name }}</h4>
+    <p>{{ contributor.info|safe }}</p>
+    {% for contribution in contributor.contribution_set.all %}
+        {% if contribution.flagged %}
+            <p id="{{ contribution.id }}" class="contribution"><a href="#{{contributor.slug}}">{{ contribution.aka }}</a> <em>{{ contribution.get_contribution_type_display }}</em>
+                {{ contribution.content }}
+                <ul class="nav">{% for comic in contribution.comic_set.public %}<li><a href="{{ comic.get_absolute_url}}"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
+            </p>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endif %}
+{% if singular %}
+    {% for contribution in singular %}
+    {% with contribution.comic_set.public as public %}
+    {% if public %}
+        <h4>{{ contribution.aka }}</h4>
+        <p id="{{ contribution.id }}" class="contribution"><em>{{ contribution.get_contribution_type_display }}</em> {{ contribution.content }}</p>
+        <ul class="nav">{% for comic in public %}<li><a href="{{ comic.get_absolute_url}}"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
+        
+    {% endif %}
+    {% endwith %}
+    {% endfor %}
+{% endif %}
+</div>
+</div>
+{% endblock%}
+
+{% block extranav %}
+    
+{% endblock %}
+
+{% block pageinfo %}
+<h2>Contribute to Name Removed!</h2>
+<p>It's fun and easy!</p>
+{% endblock %}
