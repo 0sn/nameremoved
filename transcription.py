@@ -12,6 +12,11 @@ setup_environ(settings)
 
 from comics.models import Comic
 
+# WARNING
+# This piece of crap hacky script hasn't been updated to the new version
+# of the site and needs lots of changes and makes me sad.
+# DO NOT RUN IT YET.
+
 def main():
     # the transcription javascript that just HAPPENS to contain all the urls
     # I've submitted to the site. HOW HANDY IS THAT.
