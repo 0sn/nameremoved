@@ -41,6 +41,6 @@ def report(request):
     """makes the unused suggestions report"""
     return render_with_request(
         'admin/contributions/report.html',
-        {'contribs': Contribution.objects.all().filter(flagged = False, contribution_type = 'suggested')},
+        {'contribs': Contribution.objects.all().filter(flagged = False, contribution_type = 'suggested').order("-suggested")},
         request
     )
