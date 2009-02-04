@@ -33,8 +33,8 @@ How To Update
 - You have to create the chunks yourself from your old templates
 - You have to manually convert your Extra pages into flatpages. Sucks, I know!
 
-Notice
-------
+About This Branch
+-----------------
 
-The source code expects to live in a folder named "nr", not "nameremoved". Yeah,
-well, maybe I can make it more universal or something.
+This is the branch that sits on the server. The master branch is where
+changes happen, and they're occasionally merged into this.
