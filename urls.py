@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseGone
 from comics.feeds import LatestEntries
 from sitemap import sitemap
 
@@ -51,12 +51,17 @@ def movedpics(request, rest_of_path):
    """the old pics directory lives on the static server"""
    return HttpResponsePermanentRedirect("http://static.nameremoved.com/pix" + rest_of_path)
 
+def randomimage(request):
+    """the random images aren't around any more"""
+    return HttpResponseGone()
+
 urlpatterns += patterns('',
     (r'^extra(/.*)', no_extra),
     (r'^feed/rss.xml$', old_feed),
     (r'^index.php', old_index),
     (r'^favicon\.ico', favicon),
     (r'^pix(/.*)', movedpics),
+    (r'^randomimage/.*', randomimage),
 )
 
 # static serving for debug mode
