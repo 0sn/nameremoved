@@ -30,10 +30,12 @@ h4{color:#666;margin-top:1.5em;}
     <p>{{ contributor.info|safe }}</p>
     {% for contribution in contributor.contribution_set.all %}
         {% if contribution.flagged %}
+        {% if contribution.comic_set.count %}
             <p id="{{ contribution.id }}" class="contribution"><a href="#{{contributor.slug}}">{{ contribution.aka }}</a> <em>{{ contribution.get_contribution_type_display }}</em>
                 {{ contribution.content }}
                 <ul class="nav">{% for comic in contribution.comic_set.public %}<li><a href="{{ comic.get_absolute_url}}"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
             </p>
+        {% endif %}
         {% endif %}
     {% endfor %}
 {% endfor %}
