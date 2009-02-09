@@ -9,4 +9,4 @@
 {% endif %}
 {% endspaceless %}{% endblock %}
 
-{% block transcript %}{% endblock %}
+{% block transcript %}<p id="permalink"><a href="{{ comic.get_absolute_url }}">Permanent link for this comic: <i>{{ comic.title }}</i></a></p>{% endblock %}
