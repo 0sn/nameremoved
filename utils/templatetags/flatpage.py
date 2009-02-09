@@ -2,6 +2,10 @@ from django import template
 import re
 from django.contrib.flatpages.models import FlatPage
 register = template.Library()
+from django.core.cache import cache
+
+CACHE_PREFIX = "flatpage_menu_"
+CACHE_TIME = 60 * 10
 
 def do_flatpage_children(parser, token):
     """
@@ -59,12 +63,20 @@ class FlatpageChildren(template.Node):
         if not m:
             return ""
         root = m.group(1)
-                
-        context["flatpage_children"] = FlatPage.objects.filter(
-            url__gt=root,
-            url__startswith=root
-        ).order_by('title')
-        context["flatpage_root"] = FlatPage.objects.get(url=root)
+        
+        cache_key = CACHE_PREFIX + "children_" + root
+        c = cache.get(cache_key)
+        if c is None:
+            c = FlatPage.objects.filter(url__gt=root, url__startswith=root).order_by('title')
+            cache.set(cache_key, c, CACHE_TIME)
+        context["flatpage_children"] = c
+        
+        cache_key = CACHE_PREFIX + "root_" + root
+        c = cache.get(cache_key)
+        if c is None:
+            c = FlatPage.objects.get(url=root)
+            cache.set(cache_key, c, CACHE_TIME)
+        context["flatpage_root"] = c
         return ""
 
 register.tag('flatpage_children', do_flatpage_children)

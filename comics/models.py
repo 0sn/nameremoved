@@ -2,6 +2,9 @@ from django.db import models, connection, transaction
 from django.template.defaultfilters import slugify
 from nr.contributions.models import Contribution
 import datetime, os
+from django.core.cache import cache
+
+CACHE_PREFIX = "comic_model_"
 
 class ComicsManager(models.Manager):
     def public(self):
@@ -54,7 +57,12 @@ class Comic(models.Model):
         return self.sequence - 1
     
     def last(self):
-        return Comic.comics.all().count()
+        cache_key = CACHE_PREFIX + "sequence_total"
+        c = cache.get(cache_key)
+        if c is None:
+            c = Comic.comics.public().count()
+            cache.set(cache_key, c, 600)
+        return c
     
     def next(self):
         return self.sequence + 1
@@ -70,6 +78,7 @@ def update_comic_sequence(sender, instance, **kwargs):
     for comic in Comic.comics.all():
         cursor.execute(query,[comic.date, comic.id])
     transaction.commit()
+    cache.set(CACHE_PREFIX + "sequence_total", Comic.comics.public().count(), 600)
 
 models.signals.post_save.connect(update_comic_sequence,sender=Comic)
 models.signals.post_delete.connect(update_comic_sequence,sender=Comic)

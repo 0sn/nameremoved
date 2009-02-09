@@ -24,13 +24,13 @@
     <div id="newsbar">{% block localnews %}The basic news goes here.{% endblock %}
 
     <h2>Site News</h2>
-    <p>{% chunk "site_news" %}</p>
+    <p>{% chunk "site_news" 3600 %}</p>
 
         <div id="pwblock"><h3>Advertisements</h3>
         {% if sqldebug %}
         The ads go here.
         {% else %}
-            {% chunk "pw_newsbar" %}
+            {% chunk "pw_newsbar" 3600 %}
         {% endif %}
         <p class="pwlink"><a href="https://www.projectwonderful.com/advertisehere.php?id=8681&amp;type=2">Place an advertisement on this site using the Project Wonderful service.</a></p>
         </div>
@@ -54,7 +54,7 @@
 
             <div>
                 {% spaceless %}<ul class="nav" id="vote">
-                    {% chunk "outside_links" %}
+                    {% chunk "outside_links" 3600 %}
                 </ul>{% endspaceless %}
 
                 <ul class="nav">
@@ -68,7 +68,7 @@ to the full-content feed of recent comics!</a></li>
             </div>
         </div>
 
-            <p id="copy">{% chunk "copyright"%}</p>
+            <p id="copy">{% chunk "copyright" 3600 %}</p>
             <p id="pig"><a href="http://chumpco.com"><img src="{{ MEDIA_URL }}/pix/pig.png" alt="Presented by ChumpCo, The Dummy Corporation"></a></p>
     </div>
 {% if sqldebug %}
