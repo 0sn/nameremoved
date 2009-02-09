@@ -4,6 +4,10 @@ import os
 DEBUG = False
 SQL_DEBUG = DEBUG
 
+# override in debug mode!
+# MEDIA_URL = '/media/'
+# ADMIN_MEDIA_PREFIX = '/admin_media/'
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.gzip.GZipMiddleware',

@@ -68,10 +68,8 @@ urlpatterns += patterns('',
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-#        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-#            {'document_root': settings.MEDIA_ROOT + 'static'}),
-#        (r'^pix/(?P<path>.*)$', 'django.views.static.serve',
-#            {'document_root': settings.MEDIA_ROOT + 'pix'}),
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT }),
         (r'^comic_files/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT + 'comic_files'}),
     )
