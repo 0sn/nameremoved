@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-from django.http import HttpResponsePermanentRedirect, HttpResponseGone
+from django.http import HttpResponsePermanentRedirect, HttpResponseGone, HttpResponse
 from comics.feeds import LatestEntries
 from sitemap import sitemap
 
@@ -55,6 +55,10 @@ def randomimage(request):
     """the random images aren't around any more"""
     return HttpResponseGone()
 
+def robots(request):
+    """Don't try adding a closing / to the robots.txt request."""
+    return HttpResponse("")
+
 urlpatterns += patterns('',
     (r'^extra(/.*)', no_extra),
     (r'^feed/rss.xml$', old_feed),
@@ -62,6 +66,7 @@ urlpatterns += patterns('',
     (r'^favicon\.ico', favicon),
     (r'^pix(/.*)', movedpics),
     (r'^randomimage/.*', randomimage),
+    (r'^robots.txt$', robots),
 )
 
 # static serving for debug mode
