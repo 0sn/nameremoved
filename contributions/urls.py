@@ -5,5 +5,6 @@ urlpatterns = patterns('nr.contributions.views',
     (r'^$', 'contribution_list'),
     (r'^list/$', redirect_to, {'url': "/contribute"}),
     (r'^submit/$', 'submit'),
+    (r'^submitjs/$', 'submitjs'),
     (r'^thanks/$', 'thanks'),
 )

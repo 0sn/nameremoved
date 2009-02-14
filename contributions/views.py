@@ -64,6 +64,17 @@ def submit(request):
     return render_with_request('contributions/submit.html',
                                       {'form':form}, request)
 
+def submitjs(request):
+    if request.method == 'POST':
+        form = ContributionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("<span class='thanks'>THANK YOU FOR YOUR SUGGESTION</span>")
+    else:
+        form = ContributionForm()
+    return render_with_request('contributions/jssubmit.html',{'form':form},request)
+            
+
 def thanks(request):
     return render_with_request('contributions/thanks.html',{},request)
 

@@ -1,0 +1,9 @@
+<form id="contribform" method="post" action="">
+{% for field in form %}
+<p><label for="{{field.id}}">{{field.label_tag}}</label><br>
+{{field}}<br>
+<span class="help">{{field.help_text}}</span>
+<span class="error">{{field.errors}}</span></p>
+{% endfor %}
+<input id="contribformsubmit" type="submit" />
+</form>
