@@ -2,42 +2,43 @@
 
 {% block title %}Contribute to the Site{% endblock %}
 
+{% block localnews %}{% endblock %}
+
 {% block bodycontent %}
 <div class="box">
 <h3>How to contribute</h3>
 <p class="nrccs">All you need to do is visit the <a href="/contribute/submit/">NAME REMOVED CONDUCIVE CONTRIBUTION SYSTEM</a>
     Try it out!</p>
 <p>Simultaneously, scope out <a href="/comics/220/">THIS blank comic</a>, add some text, and mail it in! (fourthpanel at nameremoved dot com) It will almost certainly be posted. Amazing interactivity!</p>
-
 <h3>List of Contributors</h3>
 <div id="contributors">
-{% if plural %}
-{% for contributor in plural %}
-    <h4 id="{{ contributor.slug }}">{{ contributor.name }}</h4>
-    <p>{{ contributor.info|safe }}</p>
-    {% for contribution in contributor.contribution_set.all %}
-        {% if contribution.flagged %}
-        {% if contribution.comic_set.count %}
-            <p id="{{ contribution.id }}" class="contribution"><a href="#{{contributor.slug}}">{{ contribution.aka }}</a> <em>{{ contribution.get_contribution_type_display }}</em>
-                {{ contribution.content }}
-                <ul class="nav">{% for comic in contribution.comic_set.public %}<li><a href="{{ comic.get_absolute_url}}"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
-            </p>
-        {% endif %}
-        {% endif %}
+{% if contributions %}
+{% for contributor in contributions %}
+{% with contributor.0 as C %}
+<h4 id="{{ C.slug }}">{{ C.name }}</h4>
+<p>{{ C.info|safe }}</p>
+{% for contribution in contributor.1 %}
+{% if contribution.comics %}
+<p id="{{ contribution.id }}" class="contribution"><a href="#{{ C.slug }}">{{ contribution.aka }}</a> <em>{{contribution.contribution_type}}</em> {{ contribution.content }}
+<ul class="nav">
+    {% for comic in contribution.comics %}
+        <li><a href="/comics/{{ comic.sequence }}/"><span>{{ comic.date|date:"j F, Y" }}</span> {{comic.title}}</a></li>
     {% endfor %}
+</ul>
+</p>
+{% endif %}    
 {% endfor %}
+{% endwith %}
+{% endfor %}        
 {% endif %}
-{% if singular %}
-    {% for contribution in singular %}
-    {% with contribution.comic_set.public as public %}
-    {% if public %}
+{% if regular %}
+{% for contribution in regular|dictsort:"aka" %}
+    {% if contribution.comics %}
         <h4>{{ contribution.aka }}</h4>
-        <p id="{{ contribution.id }}" class="contribution"><em>{{ contribution.get_contribution_type_display }}</em> {{ contribution.content }}</p>
-        <ul class="nav">{% for comic in public %}<li><a href="{{ comic.get_absolute_url}}"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
-        
+        <p id="{{ contribution.id }}" class="contribution"><em>{{ contribution.contribution_type }}</em> {{ contribution.content }}</p>
+        <ul class="nav">{% for comic in contribution.comics %}<li><a href="/comics/{{ comic.sequence }}/"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
     {% endif %}
-    {% endwith %}
-    {% endfor %}
+{% endfor %}
 {% endif %}
 </div>
 </div>
