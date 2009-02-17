@@ -19,9 +19,15 @@ def contribution_list(request):
     cc_relation = collections.defaultdict(list)
     for (con_id, comic_id) in cursor.fetchall():
         cc_relation[con_id].append(public_comics[comic_id])
-    
-    public_contributions = Contribution.objects.exclude(flagged=False).values()
-    
+
+    tmap = {}
+    for t in Contribution.CONTRIBUTION_TYPES:
+        tmap[t[0]] = t[1]    
+    def nice_type(contribution):
+        contribution["contribution_type"] = tmap[contribution["contribution_type"]]
+        return contribution
+    public_contributions = map(nice_type,Contribution.objects.exclude(flagged=False).values())
+        
     plural_contributions = []
     for contributor in Contributor.objects.exclude(id=666):
         contributions = []
