@@ -8,39 +8,49 @@ import collections
 
 def contribution_list(request):
     """the contributions list page!!"""
-    # build the horrible list of contributors
-    # (<Contributor Object>,[
-    #  {
-    #   id: contribution_id,
-    #   aka: contribution_aka,
-    #   type: contribution_type,
-    #   content: contribution_content,
-    #   comics: [{sequence,date,id,title}, ...]
-    #  }, ...
-    # ])
-    # THIS IS SO GROSS but at least it doesn't hit the database 800 times.
-    public_comics = Comic.comics.public().values('id','sequence','title','date')
+    # {id: {id, sequence, title, date}}
+    public_comics = {}
+    for comic in Comic.comics.public().values('id','sequence','title','date'):
+        public_comics[comic["id"]] = comic
+    
+    # {contribution_id: [{id, sequence, title, date}...]}
     cursor = connection.cursor()
     cursor.execute('SELECT contribution_id, comic_id from comics_comic_origin')
     cc_relation = collections.defaultdict(list)
-    for row in cursor.fetchall():
-        comic = [x for x in public_comics if x["id"] == row[1]][0]
-        cc_relation[row[0]].append(comic)
-    full_list = []
-    flagged_contributions = Contribution.objects.exclude(flagged=False).values()
-    for contributor in Contributor.objects.all().iterator():
-        contribution_comics = []
-        flagged_for_contributor = [con for con in flagged_contributions if contributor.id == con['contributor_id']]
-        for fcon in flagged_for_contributor:
-            fcon["comics"] = cc_relation[fcon["id"]]
-            contribution_comics.append(fcon)
-        full_list.append((contributor,contribution_comics))
-        
+    for (con_id, comic_id) in cursor.fetchall():
+        cc_relation[con_id].append(public_comics[comic_id])
+    
+    public_contributions = Contribution.objects.exclude(flagged=False).values()
+    
+    plural_contributions = []
+    for contributor in Contributor.objects.exclude(id=666):
+        contributions = []
+        for con in public_contributions:
+            if con['contributor_id'] == contributor.id and con['id'] in cc_relation:
+                contributions.append({
+                    "contribution": con,
+                    "comics": cc_relation[con['id']]
+                })
+        if contributions:
+            plural_contributions.append({
+                "contributor": contributor,
+                "contributions": contributions,
+            })
+    
+    single_contributions = []
+    for con in public_contributions:
+        if con['contributor_id'] == 666 and con['id'] in cc_relation:
+            single_contributions.append({
+                "aka": con['aka'].lower(),
+                "contribution": con,
+                "comics": cc_relation[con['id']]
+            })
+    
     return render_with_request(
         "contributions/list.html",
         {
-            "contributions": [c for c in full_list if c[0].id != 666],
-            "regular": [c for c in full_list if c[0].id == 666][0][1],
+            "plural": plural_contributions,
+            "single": single_contributions,
         },
         request
     )

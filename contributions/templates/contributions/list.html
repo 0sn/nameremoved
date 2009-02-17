@@ -12,32 +12,35 @@
 <p>Simultaneously, scope out <a href="/comics/220/">THIS blank comic</a>, add some text, and mail it in! (fourthpanel at nameremoved dot com) It will almost certainly be posted. Amazing interactivity!</p>
 <h3>List of Contributors</h3>
 <div id="contributors">
-{% if contributions %}
-{% for contributor in contributions %}
-{% with contributor.0 as C %}
-<h4 id="{{ C.slug }}">{{ C.name }}</h4>
-<p>{{ C.info|safe }}</p>
-{% for contribution in contributor.1 %}
-{% if contribution.comics %}
-<p id="{{ contribution.id }}" class="contribution"><a href="#{{ C.slug }}">{{ contribution.aka }}</a> <em>{{contribution.contribution_type}}</em> {{ contribution.content }}
-<ul class="nav">
-    {% for comic in contribution.comics %}
-        <li><a href="/comics/{{ comic.sequence }}/"><span>{{ comic.date|date:"j F, Y" }}</span> {{comic.title}}</a></li>
+{% if plural %}
+{% for c in plural %}
+    <h4 id="{{ c.contributor.slug }}">{{ c.contributor.name }}</h4>
+    <p>{{ c.contributor.info|safe }}</p>
+    {% for con in c.contributions %}
+        <p class="contribution" id="{{ con.contribution.id }}">
+            <a href="#{{ c.contributor.slug }}">{{ con.contribution.aka }}</a>
+            <em>{{ con.contribution.contribution_type }}</em> {{ con.contribution.content }}
+            <ul class="nav">
+            {% for comic in con.comics %}
+<li><a href="/comics/{{ comic.sequence }}/"><span>{{ comic.date|date:"j F, Y" }}</span> {{ comic.title }}</a></li>
+            {% endfor %}
+            </ul>
+        </p>
     {% endfor %}
-</ul>
-</p>
-{% endif %}    
-{% endfor %}
-{% endwith %}
-{% endfor %}        
+{% endfor %}    
 {% endif %}
-{% if regular %}
-{% for contribution in regular|dictsort:"aka" %}
-    {% if contribution.comics %}
-        <h4>{{ contribution.aka }}</h4>
-        <p id="{{ contribution.id }}" class="contribution"><em>{{ contribution.contribution_type }}</em> {{ contribution.content }}</p>
-        <ul class="nav">{% for comic in contribution.comics %}<li><a href="/comics/{{ comic.sequence }}/"><span>{{ comic.date|date:"j F, Y" }}</span>{{ comic.title }}</a></li>{% endfor %}</ul>
-    {% endif %}
+{% if single %}
+{% for c in single|dictsort:"aka" %}
+<h4>{{ c.contribution.aka }}</h4>
+<p class="contribution" id="{{ c.contribution.id }}">
+    <em>{{ c.contribution.contribution_type }}</em>
+    {{ c.contribution.content }}
+    <ul class="nav">
+        {% for comic in c.comics %}
+<li><a href="/comics/{{ comic.sequence }}/"><span>{{ comic.date|date:"j F, Y" }}</span> {{ comic.title }}</a></li>
+        {% endfor%}
+    </ul>
+</p>
 {% endfor %}
 {% endif %}
 </div>
