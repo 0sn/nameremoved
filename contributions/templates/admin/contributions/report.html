@@ -11,6 +11,9 @@ dt span{float:right;}
 dt, dd {padding:5px;}
 dt {background: #CCC;}
 dd {margin-bottom:5px; border: 1px solid #CCC;}
+a {text-decoration: none; color: black;}
+a:hover dt {background: #AAA;}
+a:hover dd {border-color: #AAA; background: #EEE;}
 </style>
     </head>
     <body>
@@ -18,8 +21,8 @@ dd {margin-bottom:5px; border: 1px solid #CCC;}
             <h1>NAME REMOVED suggestions</h1>
 <dl>
 {% for contrib in contribs %}
-<dt><span>{{ contrib.submitted}}</span>{{ contrib.aka }} </dt>
-<dd>{{ contrib.content }}</dd>
+<a href="/admin/contributions/contribution/{{ contrib.id }}/"><dt><span>{{ contrib.submitted}}</span>{{ contrib.aka }} </dt>
+<dd>{{ contrib.content }}</dd></a>
 {% endfor %}
 </dl>
 </div>
