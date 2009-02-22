@@ -18,7 +18,8 @@ def contribution_list(request):
     cursor.execute('SELECT contribution_id, comic_id from comics_comic_origin')
     cc_relation = collections.defaultdict(list)
     for (con_id, comic_id) in cursor.fetchall():
-        cc_relation[con_id].append(public_comics[comic_id])
+	if comic_id in public_comics:
+            cc_relation[con_id].append(public_comics[comic_id])
 
     tmap = {}
     for t in Contribution.CONTRIBUTION_TYPES:
