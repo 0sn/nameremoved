@@ -89,11 +89,16 @@ to the full-content feed of recent comics!</a></li>
     </div>
 {% endif %}
 </div>
-{% if not sqldebug %}<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+{% if not sqldebug %}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-_uacct = "UA-291454-1";
-urchinTracker();
-</script>{% endif %}
+try {
+var pageTracker = _gat._getTracker("UA-291454-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+{% endif %}
 </body>
 </html>
