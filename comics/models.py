@@ -8,7 +8,7 @@ CACHE_PREFIX = "comic_model_"
 
 class ComicsManager(models.Manager):
     def public(self):
-        return self.filter(date__lte=datetime.date.today())
+        return self.filter(date__lte=datetime.date.today)
 
 def upload_to(instance, filename):
     return "comics/%s-%s%s" % (str(instance.date), slugify(instance.title), os.path.splitext(filename)[1])
