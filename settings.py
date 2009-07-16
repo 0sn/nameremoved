@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'nr_comics',
     'nr_contributions',
     'nr_linkmanager',
+    'nr_storylines',
 #    'questions',
 )
 

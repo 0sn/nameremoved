@@ -1,17 +1,18 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.http import HttpResponsePermanentRedirect, HttpResponseGone, HttpResponse
-# from comics.feeds import LatestEntries
-# from sitemap import sitemap
+from nr_comics.feeds import LatestEntries
+from sitemap import sitemap
 
 from django.contrib import admin
 admin.autodiscover()
 
 from nr_linkmanager.context import navigation
-navigation.autodiscover()
 navigation.linkregistry.register_static("/","Home")
 navigation.linkregistry.register_static("/comics/", "Archive")
+navigation.linkregistry.register_static("/storylines/", "Storylines")
 navigation.linkregistry.register_static("/contribute/", "Contribute")
+navigation.autodiscover()
 
 
 def old_feed(request):
@@ -24,12 +25,14 @@ urlpatterns = patterns('',
     (r'^comics/', include('nr_comics.urls')),
     (r'^contribute/', include('nr_contributions.urls')),
     
-    # (r'^feeds/latest/$', old_feed),
-    # (r'^feeds/(?P<url>.*)/$',
-    #     'django.contrib.syndication.views.feed',
-    #     {'feed_dict': {'feedburner': LatestEntries}}),
+    (r'^storylines/', include('nr_storylines.urls')),
     
-    # (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
+    (r'^feeds/latest/$', old_feed),
+    (r'^feeds/(?P<url>.*)/$',
+         'django.contrib.syndication.views.feed',
+         {'feed_dict': {'feedburner': LatestEntries}}),
+    
+    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
     
     (r'^admin/nr_contributions/report/$', 'nr_contributions.views.report'),
     (r'^admin/memcache/$', 'nr_utils.mstat.view'),
