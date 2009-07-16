@@ -7,4 +7,4 @@
 {% endblock %}
 
 {% block nav-global %}{% if user.is_authenticated and user.is_staff %}
-<a href="{% url nr.utils.mstat.view %}">Memcache stats</a>{% endif %}{% endblock %}
+<a href="{% url nr_utils.mstat.view %}">Memcache stats</a>{% endif %}{% endblock %}

@@ -17,7 +17,9 @@
 {% block headstuff %}{% endblock %}
 </head>
 <body>
-<div class="container">{% block savedlink %}{% endblock %}
+<div class="container">    {% block savedlink %}{% spaceless%}
+        <div id="saved">Is this your first time here? Why not start with <a href="/comics/166/">this comic?</a> Or <a href="/contribute/list/">explore the contributions readers have made to the site</a>...</div>
+    {% endspaceless %}{% endblock %}
     <div id="header"><h1><img src="{{ MEDIA_URL }}/pix/title.png" alt="NAME REMOVED comics by nick wolfe"></h1></div>
 
 <div id="mainbar">
@@ -28,7 +30,7 @@
     <div id="newsbar">{% block localnews %}The basic news goes here.{% endblock %}
 
     <h2>Site News</h2>
-    <p>{% chunk "site_news" 3600 %}</p>
+    <p>{% chunk "site_news" %}</p>
     
     <p id="suggester"><a href="/contribute/submit/">Suggest a starter panel!</a></p>
 
@@ -36,7 +38,7 @@
         {% if sqldebug %}
         The ads go here.
         {% else %}
-            {% chunk "pw_newsbar" 3600 %}
+            {% chunk "pw_newsbar" %}
         {% endif %}
         <p class="pwlink"><a href="https://www.projectwonderful.com/advertisehere.php?id=8681&amp;type=2">Place an advertisement on this site using the Project Wonderful service.</a></p>
         </div>
@@ -60,7 +62,7 @@
 
             <div>
                 {% spaceless %}<ul class="nav" id="vote">
-                    {% chunk "outside_links" 3600 %}
+                    {% chunk "outside_links" %}
                 </ul>{% endspaceless %}
 
                 <ul class="nav">
@@ -74,7 +76,7 @@ to the full-content feed of recent comics!</a></li>
             </div>
         </div>
 
-            <p id="copy">{% chunk "copyright" 3600 %}</p>
+            <p id="copy">{% chunk "copyright" %}</p>
             <p id="pig"><a href="http://chumpco.com"><img src="{{ MEDIA_URL }}/pix/pig.png" alt="Presented by ChumpCo, The Dummy Corporation"></a></p>
     </div>
 {% if sqldebug %}

@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap, Sitemap
-from nr.comics.models import Comic
+from nr_comics.models import Comic
 import datetime
 
 def last_today(instance, item):

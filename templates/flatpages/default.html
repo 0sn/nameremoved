@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 {% load flatpage %}
 
-{% block title %}{{ flatpage.title }}{% endblock %}
+{% block title %}{% flatpage_children flatpage.url %}{% ifequal flatpage_root flatpage %}{{flatpage.title}}{% else %}{{flatpage_root.title}} / {{flatpage.title}}{% endifequal %}{% endblock %}
 
 {% block headstuff %}<style type="text/css">
     .cast img {float:left;clear:both;padding:0 1.5em 0 0;}

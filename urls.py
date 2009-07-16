@@ -1,34 +1,38 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.http import HttpResponsePermanentRedirect, HttpResponseGone, HttpResponse
-from comics.feeds import LatestEntries
-from sitemap import sitemap
+# from comics.feeds import LatestEntries
+# from sitemap import sitemap
 
 from django.contrib import admin
 admin.autodiscover()
 
-from nr.utils.context import navigation
+from nr_linkmanager.context import navigation
 navigation.autodiscover()
+navigation.linkregistry.register_static("/","Home")
+navigation.linkregistry.register_static("/comics/", "Archive")
+navigation.linkregistry.register_static("/contribute/", "Contribute")
+
 
 def old_feed(request):
     """People should use the feedburner url for their feeds."""
     return HttpResponsePermanentRedirect("http://feeds.feedburner.com/NameRemoved")
 
 urlpatterns = patterns('',
-    (r'^$', 'nr.comics.views.index'),
+    (r'^$', 'nr_comics.views.index'),
     
-    (r'^comics/', include('nr.comics.urls')),
-    (r'^contribute/', include('nr.contributions.urls')),
+    (r'^comics/', include('nr_comics.urls')),
+    (r'^contribute/', include('nr_contributions.urls')),
     
-    (r'^feeds/latest/$', old_feed),
-    (r'^feeds/(?P<url>.*)/$',
-        'django.contrib.syndication.views.feed',
-        {'feed_dict': {'feedburner': LatestEntries}}),
+    # (r'^feeds/latest/$', old_feed),
+    # (r'^feeds/(?P<url>.*)/$',
+    #     'django.contrib.syndication.views.feed',
+    #     {'feed_dict': {'feedburner': LatestEntries}}),
     
-    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
+    # (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
     
-    (r'^admin/contributions/report/$', 'nr.contributions.views.report'),
-    (r'^admin/memcache/$', 'nr.utils.mstat.view'),
+    (r'^admin/nr_contributions/report/$', 'nr_contributions.views.report'),
+    (r'^admin/memcache/$', 'nr_utils.mstat.view'),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
 )

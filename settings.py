@@ -38,8 +38,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
-    "nr.utils.context.navigation.nav",
-    "nr.utils.context.sqldebug.sqldebug",
+    "nr_linkmanager.context.navigation.nav",
+    "django_sqldebug.context.sqldebug.sqldebug",
 )
 
 ROOT_URLCONF = 'nr.urls'
@@ -55,9 +55,10 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django_chunks',
     'django_bonjour',
-    'nr.utils',
-    'nr.comics',
-    'nr.contributions',
+    'nr_utils',
+    'nr_comics',
+    'nr_contributions',
+    'nr_linkmanager',
 #    'questions',
 )
 
