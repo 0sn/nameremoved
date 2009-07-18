@@ -7,6 +7,7 @@
 <!--[if IE]><link rel="stylesheet" href="{{ MEDIA_URL }}/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <link rel="stylesheet" href="{{ MEDIA_URL }}/css/style20090716.css" type="text/css" media="screen" title="no title" charset="utf-8">
 <link rel="alternate" title="Full-content comics feed" href="http://feeds.feedburner.com/NameRemoved" type="application/rss+xml">
+<link media="only screen and (max-device-width: 480px)"
     <link rel="icon" href="{{MEDIA_URL}}/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="{{MEDIA_URL}}/favicon.ico" type="image/x-icon">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -16,83 +17,90 @@
 <meta name="verify-v1" content="/te/ixWmpXuBMTQblKMp8fERkU3zXuwzeFtvzHcNAQQ=" />
 {% block headstuff %}{% endblock %}
 </head>
-<body>
-<div class="container">   {% comment %} {% block savedlink %}{% spaceless%}
-        <div id="saved">Is this your first time here? Why not start with <a href="/comics/166/">this comic?</a> Or <a href="/contribute/list/">explore the contributions readers have made to the site</a>...</div>
-    {% endspaceless %}{% endblock %} {% endcomment %}
-    <div id="header"><h1><img src="{{ MEDIA_URL }}/pix/title.png" alt="NAME REMOVED comics by nick wolfe"></h1></div>
-
-<div id="mainbar">
-    <div id="pageinfo">{% block pageinfo %}This is where the page-specific headers go.{% endblock %}</div>
-
-    <div id="main">{% block bodycontent %}Stuff goes here, the content does.{% endblock %}</div>
-
-    <div id="newsbar">{% block localnews %}The basic news goes here.{% endblock %}
-        <p id="suggester"><a href="/contribute/submit/">Suggest a starter panel!</a></p>
-
-    </div>
-</div>
-<div id="bonusbar">
+<body><div id="container"> 
+<div id="right">
+    <h1><img src="{{ MEDIA_URL }}/pix/thinhead.png" alt="NAME REMOVED comics by nick wolfe"></h1>
+    <div id="meta">
         {% spaceless %}
-        <h2>Site Navigation</h2>
-        <ul class="nav">
+        <ul id="sitenav" class="nav">
             {%for url, title in root_pages %}
             {% ifequal url request.path %}
-            <li><span class="currently">{{ title }}</span></li>
+            <li class="currently">{{ title }}</li>
             {% else %}
             <li><a href="{{ url }}">{{ title }}</a></li>
             {% endifequal %}
             {% endfor %}
         </ul>
         {% endspaceless%}
-        <h2>Site News</h2>
-        <p>{% chunk "site_news" %}</p>
 
-
-            <div id="pwblock"><h3>Advertisements</h3>
-            {% if sqldebug %}
-            The ads go here.
-            {% else %}
-                {% chunk "pw_newsbar" %}
-            {% endif %}
-            <p class="pwlink"><a href="https://www.projectwonderful.com/advertisehere.php?id=8681&amp;type=2">Place an advertisement on this site using the Project Wonderful service.</a></p>
-            </div>
-    
-</div>
-    <div id="sitebar">
-        <div id="siteinfo" class="box">
-            <p class="updates">New comics every MONDAY, WEDNESDAY, FRIDAY</p>
-
-
-            <div>
-                {% spaceless %}<ul class="nav" id="vote">
-                    {% chunk "outside_links" %}
-                </ul>{% endspaceless %}
-
-                <ul class="nav">
-<li><a href="http://feeds.feedburner.com/NameRemoved"
-       rel="alternate"
-       type="application/rss+xml"><img 
-       src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png"
-       alt="" style="vertical-align:middle;border:0"> Subscribe
-to the full-content feed of recent comics!</a></li>
-                </ul>
-            </div>
+        <div id="pwblock">
+        {% if sqldebug %}
+<table>
+    <tbody>
+        <tr bgcolor="#FFFFFF">
+            <td width="117" valign="top" bgcolor="#FFFFFF" align="center" style="vertical-align: top;">
+                <a target="_blank" href="http://www.projectwonderful.com/advertisehere.php?r=3&amp;c=0&amp;id=8681&amp;type=2&amp;_r="><img width="117" height="30" border="0" alt="Click to put your ad here, for free!" title="Click to put your ad here, for free!" src="http://www.projectwonderful.com/img/uploads/pics/nadhere.png"></a>
+            </td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+            <td width="117" valign="top" bgcolor="#FFFFFF" align="center" style="vertical-align: top;">
+                <a target="_blank" href="http://www.projectwonderful.com/advertisehere.php?r=3&amp;c=0&amp;id=8681&amp;type=2&amp;_r="><img width="117" height="30" border="0" alt="Click to put your ad here, for free!" title="Click to put your ad here, for free!" src="http://www.projectwonderful.com/img/uploads/pics/nadhere.png"></a>
+            </td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+            <td width="117" valign="top" bgcolor="#FFFFFF" align="center" style="vertical-align: top;">
+                <a target="_blank" href="http://www.projectwonderful.com/advertisehere.php?r=3&amp;c=0&amp;id=8681&amp;type=2&amp;_r="><img width="117" height="30" border="0" alt="Click to put your ad here, for free!" title="Click to put your ad here, for free!" src="http://www.projectwonderful.com/img/uploads/pics/nadhere.png"></a>
+            </td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+            <td width="117" valign="top" bgcolor="#FFFFFF" align="center" style="vertical-align: top;">
+                <a target="_blank" href="http://www.projectwonderful.com/advertisehere.php?r=3&amp;c=0&amp;id=8681&amp;type=2&amp;_r="><img width="117" height="30" border="0" alt="Click to put your ad here, for free!" title="Click to put your ad here, for free!" src="http://www.projectwonderful.com/img/uploads/pics/nadhere.png"></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+        {% else %}
+            {% chunk "pw_newsbar" %}
+        {% endif %}
+            <p class="pwlink"><a href="https://www.projectwonderful.com/advertisehere.php?id=8681&amp;type=2">Advertise here.</a></p>
         </div>
-
-            <p id="copy">{% chunk "copyright" %}</p>
-            <p id="pig"><a href="http://chumpco.com"><img src="{{ MEDIA_URL }}/pix/pig.png" alt="Presented by ChumpCo, The Dummy Corporation"></a></p>
-    </div>
-{% if sqldebug %}
-    <div id="sqldebug">
-        <div class="box">
-            <h4>SQL queries performed on this page</h4>
-            <p>{{ sqldebug}}</p>
-            <ul>
-                {{ sqldebug.queries|safe }}
+        
+        <p id="suggester"><a href="/contribute/submit/">Suggest a starter panel!</a></p>
+        
+        <p id="updates">Updates Monday Wednesday Friday</p>
+        
+        <div id="sitenews">
+            <h3>Site News</h3>
+            {% chunk "site_news" %}
+        </div>
+        
+        <div id="linksbar">
+            {% spaceless %}<ul class="nav" id="vote">
+                {% chunk "outside_links" %}
+            </ul>{% endspaceless %}
+            <ul class="nav">
+                <li><a href="http://feeds.feedburner.com/NameRemoved"
+                   rel="alternate"
+                   type="application/rss+xml">Subscribe
+                    to the full-content feed.</a></li>
             </ul>
         </div>
+        <p id="copy">{% chunk "copyright" %}</p>    
+        <p id="pig"><a href="http://chumpco.com"><img src="{{ MEDIA_URL }}/pix/gbgpig.png" alt="Presented by ChumpCo, The Dummy Corporation"></a></p>
     </div>
+    <div id="sidebar">{% block sidebar %}Sidebar content goes here.{% endblock %}</div>
+</div>
+
+<div id="main">{% block bodycontent %}Content goes here.{% endblock %}</div>
+
+{% if sqldebug %}
+<div id="sqldebug">
+    <h4>SQL queries performed on this page</h4>
+    <p>{{ sqldebug}}</p>
+    <ul>
+{{ sqldebug.queries|safe }}
+    </ul>
+</div>
 {% endif %}
 </div>
 {% if not sqldebug %}
