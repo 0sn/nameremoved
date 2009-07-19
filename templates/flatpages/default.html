@@ -22,7 +22,7 @@
 {% flatpage_children flatpage.url %}
 <h2>{% ifequal flatpage_root flatpage %}{{flatpage.title}}{% else %}<a href="{{flatpage_root.url}}">{{flatpage_root.title}}</a> / {{flatpage.title}}{% endifequal %}</h2>
 {% if flatpage_children %}
-<ul class="nav">
+<ul>
 {% for child in flatpage_children %}
     {% ifequal child.url flatpage.url  %}
         <li><span class="currently">{{child.title}}</span></li>
