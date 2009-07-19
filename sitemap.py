@@ -8,7 +8,8 @@ def last_today(instance, item):
 static_pages = [
     {'name':'Front Page', 'priority': 1.0, 'location': '/', 'freq': 'daily'},
     {'name':'Archive', 'priority': 0.5, 'location': '/comics/', 'freq': 'weekly'},
-    {'name':'Contributions', 'priority': 0.6, 'location': '/contribute/', 'freq': 'weekly'}
+    {'name':'Contributions', 'priority': 0.6, 'location': '/contribute/', 'freq': 'weekly'},
+    {'name':'Storylines', 'priority': 0.7, 'location': '/storylines/', 'freq': 'weekly'},
 ]
 
 class StaticSitemap(Sitemap):
