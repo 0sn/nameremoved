@@ -35,7 +35,6 @@ urlpatterns = patterns('',
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemap}),
     
     (r'^admin/nr_contributions/report/$', 'nr_contributions.views.report'),
-    (r'^admin/nr_contributions/flagged/$', 'nr_contributions.views.flagged_report'),
     (r'^admin/memcache/$', 'nr_utils.mstat.view'),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
