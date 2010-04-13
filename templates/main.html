@@ -82,12 +82,16 @@
             {% spaceless %}<ul class="nav" id="vote">
                 {% chunk "outside_links" %}
             </ul>{% endspaceless %}
+            
             <ul class="nav">
                 <li><a href="http://feeds.feedburner.com/NameRemoved"
                    rel="alternate"
                    type="application/rss+xml">Subscribe
                     to the full-content feed</a></li>
             </ul>
+            
+            {% spaceless %}{% chunk "other_comics" %}{% endspaceless %}
+            
         </div>
         <p id="copy">{% chunk "copyright" %}</p>    
         <p id="pig"><a href="http://chumpco.com"><img src="{{ MEDIA_URL }}/pix/gbgpig.png" alt="Presented by ChumpCo, The Dummy Corporation"></a></p>
